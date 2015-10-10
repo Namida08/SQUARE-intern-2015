@@ -21,10 +21,10 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 
 	void Start (){
 		if (minSwipeDistX == 0) {
-			minSwipeDistX = 30;
+			minSwipeDistX = 50;
 		}
 		if (minSwipeDistY == 0) {
-			minSwipeDistY = 30;
+			minSwipeDistY = 20;
 		}
 	}
 
@@ -35,18 +35,14 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 
 	void FixedUpdate () {
 		// ゲームが始まっているか判断
-		//if (CanvasManager.currentStatus == CanvasManager.Status.Game) {
-		//	if (!PlayerController.Instance.IsGameOver ()) {
-		inputTouchChecker ();
-		//Swipe ();
-		//	}
-		//} else if (CanvasManager.currentStatus == CanvasManager.Status.Start) {
-		//	startTouch();
-		//}
+		if (CanvasManager.currentStatus == CanvasManager.Status.Start) {
+			TitleTouchChecker();
+		}else if (CanvasManager.currentStatus == CanvasManager.Status.Game) {
+			GameTouchChecker ();
+		} 
 	}
 	
-	private void startTouch (){
-		/*
+	private void TitleTouchChecker(){
 		if (Input.GetMouseButton (0)) {
 			// 右側をタッチした瞬間の挙動
 			if (Input.mousePosition.x > (camera.pixelWidth / 2)) {
@@ -56,10 +52,9 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 				CanvasManager.Instance.ClickStartButton(1);
 			}
 		}
-		*/
 	}
 	
-	private void inputTouchChecker(){
+	private void GameTouchChecker(){
 
 		if (Input.GetMouseButtonDown (0)) {
 			startPos = Input.mousePosition;
@@ -97,53 +92,8 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 		}
 	}
 
-	private void Swipe (){
-		if (Input.touchCount > 0) {
-			print ("a");
-			Touch touch = Input.touches [0];
-			switch (touch.phase) {
-			
-			//タッチ開始時
-			case TouchPhase.Began:
-				startPos = touch.position;
-				break;
-			
-			case TouchPhase.Moved:
-				endPos = new Vector2 (touch.position.x, touch.position.y);
-			
-				//X方向にスワイプした距離を算出
-				swipeDistX = (new Vector3 (endPos.x, 0, 0) - new Vector3 (startPos.x, 0, 0)).magnitude;
-				if (swipeDistX > minSwipeDistX) {
-					//x座標の差分のサインを計算, xの差分をとっているので絶対にサインの値は1(90度)か-1(270度)
-					SignValueX = Mathf.Sign (endPos.x - startPos.x);
-					if (SignValueX > 0) {
-						//右方向にスワイプしたとき
-
-					} else if (SignValueX < 0) {
-						//左方向にスワイプしたとき
-
-					}
-				}
-			
-				//Y方向にスワイプした距離を算出
-				swipeDistY = (new Vector3 (0, endPos.y, 0) - new Vector3 (0, startPos.y, 0)).magnitude;
-				if (swipeDistY > minSwipeDistY) {
-					//y座標の差分のサインを計算, yの差分をとっているので絶対にサインの値は1(90度)か-1(270度)
-					SignValueY = Mathf.Sign (endPos.y - startPos.y);
-					if (SignValueY > 0) {
-						//上方向にスワイプしたとき
-						TyphoonController.Instance.AddDensity ();
-					} else if (SignValueY < 0) {
-						//下方向にスワイプしたとき
-						TyphoonController.Instance.SubDensity ();
-					}
-				}
-				break;
-			}
-		}
-	}
-
-
 	void Awake () {
+		base.Awake ();
+		DontDestroyOnLoad(this.gameObject);
 	}
 }

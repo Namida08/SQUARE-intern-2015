@@ -10,16 +10,18 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 	};
 	
 	public static Status currentStatus;
-	
-	//public GameObject startCanvas;
-	public GameObject gameCanvas;
-	//public GameObject resultCanvas;
-	
-	public Text gameScore;
-	//public Text highScoreAlert;
-	//public Text resultScore;
-	//public Text resultHighScore;
-	
+
+	[SerializeField] private GameObject titleCanvas;
+	[SerializeField] private GameObject gameCanvas;
+	[SerializeField] private GameObject resultCanvas;
+
+	[SerializeField] public Text gameScore;
+	//[SerializeField] public Text highScoreAlert;
+	[SerializeField] public Text resultScore;
+	[SerializeField] public Text resultHighScore;
+
+	[SerializeField] private BackgroundController background;
+
 	public Camera mainCamera;
 	
 	//[SerializeField] private ParticleSystem cracker;
@@ -27,15 +29,9 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 	
 	private List<Object> particles = new List<Object>();
 
-	[SerializeField] 
-	private BackgroundController background;
-
-
 	// Use this for initialization
 	void Start () {
-		currentStatus = Status.GameInit;
-
-
+		currentStatus = Status.Init;
 	}
 	
 	// Update is called once per frame
@@ -44,9 +40,9 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 		case Status.Init:
 			Init ();
 			AudioManager.Instance.PlayBGM("op");
-			//startCanvas.SetActive (true);
+			titleCanvas.SetActive (true);
 			gameCanvas.SetActive (false);
-			//resultCanvas.SetActive (false);
+			resultCanvas.SetActive (false);
 			currentStatus = Status.Start;
 			//StageController.Instance.StageInit ();
 			break;
@@ -58,16 +54,16 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 			break;
 		case Status.GameInit:
 			GameManager.Instance.GameInit ();
-			//AudioManager.Instance.PlayBGM("game");
-			//startCanvas.SetActive(false);
+			AudioManager.Instance.PlayBGM("game");
+			titleCanvas.SetActive(false);
 			gameCanvas.SetActive(true);
-			//resultCanvas.SetActive (false);
+			resultCanvas.SetActive (false);
 			GameManager.Instance.GameStart();
 			currentStatus = Status.Game;
 			//highScoreAlert.gameObject.SetActive(false);
 			break;
 		case Status.Game:
-			background.Move(-0.1f);
+			background.Move(-0.1f);//あとでステージに移植
 			gameScore.text = ((int)GameManager.score).ToString();
 			if(GameManager.score > GameManager.highScore){
 				//highScoreAlert.gameObject.SetActive(true);
@@ -108,10 +104,9 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 			particles.Add (Instantiate(cracker, new Vector3(mainCamera.orthographicSize * 1.5f, mainCamera.orthographicSize * -1, 0), Quaternion.Euler(-75, -90, 0)));
 		}
 	}*/
-
-	/*
+	
 	public void ClickStartButton(int level) {
-		GameManager.Instance.level = level;
+		//GameManager.Instance.level = level;
 		FadeManager.Instance.FadeOutAndIn (Status.GameInit);
 		AudioManager.Instance.PlaySE("start");
 	}
@@ -125,7 +120,6 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 		FadeManager.Instance.FadeOutAndIn (Status.Init);
 		AudioManager.Instance.PlaySE("restart");
 	}
-	*/
 
 	public void Awake()	{
 		base.Awake ();
