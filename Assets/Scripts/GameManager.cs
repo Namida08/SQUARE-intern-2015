@@ -26,6 +26,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 		lastScore = PlayerPrefs.GetInt (NORMAL_LAST_SCORE_KEY, 0);
 		
 		//init
+		TyphoonController.Instance.Init ();
 	}
 	
 	public void GameStart(){
