@@ -6,10 +6,15 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	[SerializeField]
 	private Camera camera;
 
+	public enum Status{
+		Neutral
+	};
 	private float density;	//密度
 	private float hp;		//勢力
 	private Vector2 point;	//座標
 	private float size;		//サイズ
+
+	private Status status;
 
 	// Use this for initialization
 	void Start () {
