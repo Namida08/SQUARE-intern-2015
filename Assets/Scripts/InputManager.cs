@@ -27,7 +27,7 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 			minSwipeDistX = 20;
 		}
 		if (minSwipeDistY == 0) {
-			minSwipeDistY = 20;
+			minSwipeDistY = 50;
 		}
 		count = 0;
 		maxCount = 60;
@@ -56,10 +56,11 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 			}
 		}
 	}
-	
+
 	private void GameTouchChecker(){
 		if (Input.GetMouseButtonDown (0)) {
 			startPos = Input.mousePosition;
+			count = 0;
 		}
 		if (Input.GetMouseButton (0)) {
 			endPos = Input.mousePosition;
@@ -84,7 +85,6 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 			if(count < maxCount){
 				TyphoonController.Instance.ChangeStatus();
 			}
-			count = 0;
 		}
 	}
 

@@ -7,12 +7,12 @@ public class IslandController : BaseFieldObject {
 	
 	// Use this for initialization
 	void Start () {
-		baseFlowSpeed = GameObject.Find ("ObjectManager").GetComponent<ObjectManager> ().baseSpeedOfZ;
-		Move (new Vector3 (.0f, .0f, baseFlowSpeed));
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		baseFlowSpeed = ObjectManager.Instance.baseSpeedOfZ;
+		Move (new Vector3 (.0f, .0f, baseFlowSpeed));
 		DestroyByField ();
 	}
 
@@ -22,7 +22,9 @@ public class IslandController : BaseFieldObject {
 
 	void OnTriggerEnter(Collider col){
 		if(col.tag.Equals("Player")){
-			GetWater();
+			if(TyphoonController.status == TyphoonController.Status.big){
+				GetWater();
+			}
 		}
 	}
 	

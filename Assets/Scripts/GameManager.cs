@@ -8,6 +8,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 	public static int highScore;
 	public static int lastScore;
 	public static float score;
+	public static float time;
 
 	[SerializeField] private float scoreMagnification = 1.0f;
 
@@ -19,6 +20,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 	
 	public void GameInit(){
 		score = 0;
+		time = 30.0f;
 		highScore = PlayerPrefs.GetInt (NORMAL_HIGH_SCORE_KEY, 0);
 		lastScore = PlayerPrefs.GetInt (NORMAL_LAST_SCORE_KEY, 0);
 		
@@ -28,7 +30,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 	}
 
 	public void GameUpdate(){
-		AddScore (-ObjectManager.Instance.baseSpeedOfZ);
+		time -= Time.deltaTime;
+		if (time <= 0) {
+			GameFinish();
+		}
 	}
 
 	public void GameStart(){
@@ -37,6 +42,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 	
 	public void GameFinish(){
 		if (CanvasManager.currentStatus == CanvasManager.Status.Game) {
+			TyphoonController.Instance.GameOver();
 			AudioManager.Instance.PlaySE("gameover");
 			if (score > highScore) {
 				PlayerPrefs.SetInt (NORMAL_HIGH_SCORE_KEY, (int)score);

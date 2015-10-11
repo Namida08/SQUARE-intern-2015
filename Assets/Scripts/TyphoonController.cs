@@ -11,6 +11,12 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	private ParticleSystem tornadeParticle;
 
 	[SerializeField]
+	private ParticleSystem shockParticle;
+
+	[SerializeField]
+	private ParticleSystem ringParticle;
+
+	[SerializeField]
 	private GameObject tornadeCollider;
 
 	public enum Status{
@@ -47,14 +53,17 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	}
 	
 	public void Init(){
-		status = Status.big;
+		status = Status.small;
+		CalcDensity(1.0f);
 		point = new Vector2 (0 / 2, 0);	//画面サイズ半分初期値
 		Move (0.0f);
 		density = 0.0f;
 		CalcDensity(0.0f);
+		SetRingActive (true);
 		hp = 100.0f;
 		speed = 0.0f;
 		speedCount = 0;
+		AudioManager.Instance.PlaySE("wind1");
 	}
 
 	public void SetSpeed(float value){
@@ -93,30 +102,38 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	}
 
 	public void ChangeStatus(){
-		if (status == Status.small) {
+		if (status == Status.small || status == Status.changeSmall) {
 			status = Status.changeBig;
-		} else if (status == Status.big) {
+		} else if (status == Status.big || status == Status.changeBig) {
 			status = Status.changeSmall;
 		}
 	}
 
 	private void CalcStatus(){
 		if (status == Status.changeSmall) {
-			CalcDensity(1.0f);
-		} else if (status == Status.changeBig) {
 			CalcDensity(-1.0f);
+		} else if (status == Status.changeBig) {
+			CalcDensity(1.0f);
+		} else if (status == Status.small) {
+			ObjectManager.Instance.baseSpeedOfZ = -20.0f;
+		} else if (status == Status.big) {
+			ObjectManager.Instance.baseSpeedOfZ = -10.0f;
 		}
 	}
 
-	private void CalcDensity(float value){
+	public void CalcDensity(float value){
 		density += value;
 		if (density > 0.5) {
 			density = 0.5f;
-			status = Status.small;
+			status = Status.big;
 		}else if(density < -0.5){
 			density = -0.5f;
-			status = Status.big;
+			status = Status.small;
 		}
+		SetDensity (density);
+	}
+
+	public void SetDensity(float density){
 		gameObject.transform.localScale = new Vector3(1.0f + density, 1.0f - density, 1.0f);
 		//
 		tornadeParticle.startSpeed = 6.0f - density * 10.0f;
@@ -126,6 +143,11 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 		tornadeCollider.transform.localScale = new Vector3(8.0f,8.0f,8.0f) * (1.0f + density);
 	}
 
+	public void SetRingActive(bool flag){
+		shockParticle.gameObject.SetActive(flag);
+		ringParticle.gameObject.SetActive(flag);
+	}
+	
 	public void AddDensity(){
 		CalcDensity(0.02f);
 	}
@@ -133,7 +155,6 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	public void SubDensity(){
 		CalcDensity(-0.02f);
 	}
-
 
 	public void AddHP(float value){
 		hp += value;
@@ -158,7 +179,9 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	
 	void OnTriggerExit(Collider col){
 		if(col.gameObject.tag.Equals("Island")){
-			GameManager.Instance.AddScore(100.0f);
+			if(status == Status.big){
+				GameManager.Instance.AddScore(100.0f);
+			}
 		}
 	}
 
@@ -166,6 +189,11 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 		if(col.gameObject.tag.Equals("Island")){
 			AddHP(-0.1f);
 		}
+	}
+
+	public void GameOver(){
+		SetDensity (-1.0f);
+		SetRingActive (false);
 	}
 
 }

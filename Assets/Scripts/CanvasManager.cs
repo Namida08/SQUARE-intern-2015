@@ -20,6 +20,7 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 	//[SerializeField] public Text highScoreAlert;
 	[SerializeField] public Text resultScore;
 	[SerializeField] public Text resultHighScore;
+	[SerializeField] public Text time;
 
 	[SerializeField] private BackgroundController background;
 
@@ -55,7 +56,7 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 			break;
 		case Status.GameInit:
 			GameManager.Instance.GameInit ();
-			AudioManager.Instance.PlayBGM("game");
+			AudioManager.Instance.PlayBGM("clearday");
 			titleCanvas.SetActive(false);
 			gameCanvas.SetActive(true);
 			resultCanvas.SetActive (false);
@@ -64,9 +65,10 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 			//highScoreAlert.gameObject.SetActive(false);
 			break;
 		case Status.Game:
-			background.Move(-0.1f);//あとでステージに移植
+			background.Move(ObjectManager.Instance.baseSpeedOfZ/100);//あとでステージに移植
 			GameManager.Instance.GameUpdate();
 			gameScore.text = ((int)GameManager.score).ToString();
+			time.text = ((int)GameManager.time).ToString();
 			if(GameManager.score > GameManager.highScore){
 				//highScoreAlert.gameObject.SetActive(true);
 			}
@@ -74,6 +76,7 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 		case Status.ResultInit:
 			//highScoreAlert.gameObject.SetActive(false);
 			ResultInit();
+			AudioManager.Instance.PlayBGM("result");
 			currentStatus = Status.Result;
 			break;
 		case Status.Result:
