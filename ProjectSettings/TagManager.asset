@@ -4,6 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
+=======
+  - FieldObject
+>>>>>>> 795db2649a4cec17c7ccd88f66ddac4f2ed8db42
   - Island
   layers:
   - Default

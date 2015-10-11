@@ -37,9 +37,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
---- !u!127 &3
-LevelGameManager:
-  m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -68,6 +65,7 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
+    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
@@ -118,6 +116,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
@@ -384,33 +388,21 @@ Prefab:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11441944, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
+      propertyPath: titleCanvas
+      value: 
+      objectReference: {fileID: 1609356511}
+    - target: {fileID: 11441944, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
       propertyPath: gameCanvas
       value: 
       objectReference: {fileID: 1236967402}
-    - target: {fileID: 11441944, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
-      propertyPath: gameScore
-      value: 
-      objectReference: {fileID: 1586056302}
-    - target: {fileID: 11441944, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1422649841}
-    - target: {fileID: 11441944, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
-      propertyPath: background
-      value: 
-      objectReference: {fileID: 1337996851}
-    - target: {fileID: 11441944, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
-      propertyPath: startCanvas
-      value: 
-      objectReference: {fileID: 1609356511}
     - target: {fileID: 11441944, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
       propertyPath: resultCanvas
       value: 
       objectReference: {fileID: 1875273550}
     - target: {fileID: 11441944, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
-      propertyPath: titleCanvas
+      propertyPath: gameScore
       value: 
-      objectReference: {fileID: 1609356511}
+      objectReference: {fileID: 1586056302}
     - target: {fileID: 11441944, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
       propertyPath: resultScore
       value: 
@@ -419,6 +411,14 @@ Prefab:
       propertyPath: resultHighScore
       value: 
       objectReference: {fileID: 1889684427}
+    - target: {fileID: 11441944, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
+      propertyPath: background
+      value: 
+      objectReference: {fileID: 1337996851}
+    - target: {fileID: 11441944, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1422649841}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
   m_IsPrefabParent: 0
@@ -493,7 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AllowActivationOnStandalone: 0
+  m_ForceModuleActive: 0
 --- !u!114 &959797036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
   m_RepeatDelay: .5
-  m_AllowActivationOnMobileDevice: 0
+  m_ForceModuleActive: 0
 --- !u!114 &959797037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,6 +538,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
+--- !u!1001 &1075059109
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 421132, guid: 9bd8268b1e8ed45468772613219c98a5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 421132, guid: 9bd8268b1e8ed45468772613219c98a5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 421132, guid: 9bd8268b1e8ed45468772613219c98a5, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 421132, guid: 9bd8268b1e8ed45468772613219c98a5, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 421132, guid: 9bd8268b1e8ed45468772613219c98a5, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 421132, guid: 9bd8268b1e8ed45468772613219c98a5, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 421132, guid: 9bd8268b1e8ed45468772613219c98a5, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 421132, guid: 9bd8268b1e8ed45468772613219c98a5, type: 2}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 11437080, guid: 9bd8268b1e8ed45468772613219c98a5, type: 2}
+      propertyPath: baseSpeedOfZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11437080, guid: 9bd8268b1e8ed45468772613219c98a5, type: 2}
+      propertyPath: crowd
+      value: 
+      objectReference: {fileID: 154296, guid: fe93d507ecaea45459610ed87ec7f488, type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9bd8268b1e8ed45468772613219c98a5, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1236967402 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 116152, guid: 351e4e79e12bc924eb0b0362bdffaefb, type: 2}
@@ -843,6 +893,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
@@ -918,6 +974,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
@@ -984,6 +1046,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
@@ -1096,6 +1164,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
