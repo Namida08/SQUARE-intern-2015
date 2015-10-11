@@ -8,7 +8,7 @@ public class ObjectPool : SingletonMonoBehaviour<ObjectPool>
 	private Dictionary<int, List<GameObject>> pooledGameObjects = new Dictionary<int, List<GameObject>> ();
 	
 	// ゲームオブジェクトをpooledGameObjectsから取得する。必要であれば新たに生成する
-	public GameObject GetGameObject (GameObject prefab, Vector2 position, Quaternion rotation)
+	public GameObject GetGameObject (GameObject prefab, Vector3 position, Quaternion rotation)
 	{
 		// プレハブのインスタンスIDをkeyとする
 		int key = prefab.GetInstanceID ();
