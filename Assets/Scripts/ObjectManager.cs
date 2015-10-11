@@ -24,7 +24,7 @@ public class ObjectManager : MonoBehaviour {
 		while (true)
 		{
 			// Change using table
-			var obj = GameObject.FindGameObjectsWithTag("FieldObject");
+			var obj = GameObject.FindGameObjectsWithTag("Island");
 			if (obj.Length < maxObjectConunt) {
 				if (Random.Range(0.0f,1.0f) < 0.4f) 
 					yield return new WaitForSeconds(appearanceSpan);
