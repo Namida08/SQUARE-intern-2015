@@ -6,6 +6,7 @@ public class ObjectManager : MonoBehaviour {
 	public int maxObjectConunt;
 	public float appearanceSpan;
 	public float appearanceRate;
+	public float baseSpeedOfZ;
 	public GameObject crowd;
 	
 	// Use this for initialization
@@ -23,7 +24,7 @@ public class ObjectManager : MonoBehaviour {
 		while (true)
 		{
 			// Change using table
-			var obj = GameObject.FindGameObjectsWithTag("FieldObject");
+			var obj = GameObject.FindGameObjectsWithTag("Island");
 			if (obj.Length < maxObjectConunt) {
 				if (Random.Range(0.0f,1.0f) < 0.4f) 
 					yield return new WaitForSeconds(appearanceSpan);
@@ -33,7 +34,7 @@ public class ObjectManager : MonoBehaviour {
 					Random.Range(FieldManager.Instance.bottom,FieldManager.Instance.top));
 				Quaternion spawnRotation = Quaternion.identity;
 				var cr = (GameObject)Instantiate(crowd, spawnPosition, spawnRotation);
-				cr.GetComponent<CrowdController>().setBaseVerocity(new Vector3(0.4f,0f,0.2f));
+				//cr.GetComponent<IslandController>().setBaseVelocity(new Vector3(0.4f,0f,0.2f));
 				yield return new WaitForSeconds(appearanceSpan);
 			}
 			yield return new WaitForSeconds(appearanceSpan);

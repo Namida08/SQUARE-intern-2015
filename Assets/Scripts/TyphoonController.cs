@@ -88,4 +88,22 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 		base.Awake ();
 	}
 
+	void OnTriggerEnter(Collider col){
+		if(col.gameObject.tag.Equals("Island")){
+			
+		}
+	}
+	
+	void OnTriggerExit(Collider col){
+		if(col.gameObject.tag.Equals("Island")){
+			
+		}
+	}
+
+	void OnTriggerStay(Collider col){
+		if(col.gameObject.tag.Equals("Island")){
+
+		}
+	}
+
 }
