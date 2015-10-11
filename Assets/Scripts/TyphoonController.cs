@@ -34,6 +34,7 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 		Move (0.0f);
 		density = 0.0f;
 		CalcDensity(0.0f);
+		hp = 100.0f;
 	}
 
 	private void Move(float value){
@@ -80,8 +81,14 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 
 
 	public void AddHP(float value){
-		//if-限界
 		hp += value;
+		if (hp < 0) {
+			hp = 0;
+		}
+	}
+
+	private void CalcHP(float value){
+		
 	}
 
 	void Awake () {
@@ -96,13 +103,13 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	
 	void OnTriggerExit(Collider col){
 		if(col.gameObject.tag.Equals("Island")){
-			
+			GameManager.Instance.AddScore(100.0f);
 		}
 	}
 
 	void OnTriggerStay(Collider col){
 		if(col.gameObject.tag.Equals("Island")){
-
+			AddHP(-0.1f);
 		}
 	}
 

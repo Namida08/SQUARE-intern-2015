@@ -64,6 +64,7 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 			break;
 		case Status.Game:
 			background.Move(-0.1f);//あとでステージに移植
+			GameManager.Instance.GameUpdate();
 			gameScore.text = ((int)GameManager.score).ToString();
 			if(GameManager.score > GameManager.highScore){
 				//highScoreAlert.gameObject.SetActive(true);
@@ -71,7 +72,7 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 			break;
 		case Status.ResultInit:
 			//highScoreAlert.gameObject.SetActive(false);
-			//ResultInit();
+			ResultInit();
 			currentStatus = Status.Result;
 			break;
 		case Status.Result:
@@ -91,19 +92,18 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 			Destroy (gaemObject);
 		}
 	}
-
-	/*
+	
 	private void ResultInit(){
-		particles.Add (Instantiate (planeDust, PlayerController.Instance.transform.position, Quaternion.Euler (-90, 0, 0)));
+		//particles.Add (Instantiate (planeDust, PlayerController.Instance.transform.position, Quaternion.Euler (-90, 0, 0)));
 		gameCanvas.SetActive(false);
 		resultCanvas.SetActive(true);
 		resultScore.text = ((int)GameManager.score).ToString();
 		resultHighScore.text = ((int)GameManager.highScore).ToString();
 		if (GameManager.score > GameManager.highScore) {
-			particles.Add (Instantiate(cracker, new Vector3(mainCamera.orthographicSize * -1.5f, mainCamera.orthographicSize * -1.0f, 0.0f), Quaternion.Euler(-75, 90, 0)));
-			particles.Add (Instantiate(cracker, new Vector3(mainCamera.orthographicSize * 1.5f, mainCamera.orthographicSize * -1, 0), Quaternion.Euler(-75, -90, 0)));
+			//particles.Add (Instantiate(cracker, new Vector3(mainCamera.orthographicSize * -1.5f, mainCamera.orthographicSize * -1.0f, 0.0f), Quaternion.Euler(-75, 90, 0)));
+			//particles.Add (Instantiate(cracker, new Vector3(mainCamera.orthographicSize * 1.5f, mainCamera.orthographicSize * -1, 0), Quaternion.Euler(-75, -90, 0)));
 		}
-	}*/
+	}
 	
 	public void ClickStartButton(int level) {
 		//GameManager.Instance.level = level;
