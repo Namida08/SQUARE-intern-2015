@@ -1,45 +1,91 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TyphoonController : MonoBehaviour {
+public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 
-	private float density;	//密度
+	[SerializeField]
+	private Camera camera;
+
+	[SerializeField]
+	private ParticleSystem tornadeParticle;
+
+
+	public enum Status{
+		Neutral
+	};
+
+	private Status status;
+
+	private float density;	//密度倍率
 	private float hp;		//勢力
 	private Vector2 point;	//座標
 	private float size;		//サイズ
 
 	// Use this for initialization
 	void Start () {
-		point = new Vector2 (100 / 2, 100);	//画面サイズ半分初期値
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () {	
 	}
 
 	public void Init(){
-
+		point = new Vector2 (0 / 2, 0);	//画面サイズ半分初期値
+		Move (0.0f);
+		density = 0.0f;
+		CalcDensity(0.0f);
 	}
 
-	public void Move(float value){
-		//if移動量限界
+	private void Move(float value){
 		point.x += value;
+		if (point.x > 10) {
+			point.x = 10;
+		} else if (point.x < -10) {
+			point.x = -10;		
+		}
+		gameObject.transform.position = point;
 	}
 
-	public void AddDensity(float value){
-		//if-限界
-		density += value;
+	public void MoveRight(){
+		Move (0.2f);
 	}
+
+	public void MoveLeft(){
+		Move (-0.2f);
+	}
+
+	private void CalcDensity(float value){
+		density += value;
+		if (density > 0.5) {
+			density = 0.5f;
+		}else if(density < -0.5){
+			density = -0.5f;
+		}
+		gameObject.transform.localScale = new Vector3(1.0f + density, 1.0f - density, 1.0f);
+		//
+		tornadeParticle.startSpeed = 6.0f - density * 10.0f;
+		tornadeParticle.startSize = 6.0f + density * 10.0f;
+		tornadeParticle.emissionRate = 300.0f - density * 400.0f;
+
+
+	}
+
+	public void AddDensity(){
+		CalcDensity(0.02f);
+	}
+
+	public void SubDensity(){
+		CalcDensity(-0.02f);
+	}
+
 
 	public void AddHP(float value){
 		//if-限界
 		hp += value;
 	}
 
-
-
-
-
+	void Awake () {
+		base.Awake ();
+	}
 
 }
