@@ -10,13 +10,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 	public static float score;
 
 	[SerializeField] private float scoreMagnification = 10.0f;
-	
-	// Use this for initialization
-	void Start () {
 
+	void Start () {
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 	}
 	
@@ -28,13 +25,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 		//init
 		TyphoonController.Instance.Init ();
 	}
-	
+
+	public void GameUpdate(){
+		//AddScore (-ObjectManager.Instantiate.baseSpeedOfZ);
+	}
+
 	public void GameStart(){
 		//start
 	}
 	
 	public void GameFinish(){
-		/*
 		if (CanvasManager.currentStatus == CanvasManager.Status.Game) {
 			AudioManager.Instance.PlaySE("gameover");
 			if (score > highScore) {
@@ -45,11 +45,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 			PlayerPrefs.Save ();
 			CanvasManager.currentStatus = CanvasManager.Status.ResultInit;
 		}
-		*/
 	}
 	
-	private void AddScore(float value){
-		score += - value * scoreMagnification;
+	public void AddScore(float value){
+		score += value * scoreMagnification;
 		if (score < 0) {
 			score = 0;
 		}
