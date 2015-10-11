@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody))]
 public class IslandController : BaseFieldObject {
+	private float baseFlowSpeed;
 	
 	// Use this for initialization
 	void Start () {
-		Move (new Vector3 (.0f,
-		                   .0f,
-		                   ((ObjectManager)GameObject.Find ("ObjectManager").GetComponent<ObjectManager>()).baseSpeedOfZ));
+		baseFlowSpeed = GameObject.Find ("ObjectManager").GetComponent<ObjectManager> ().baseSpeedOfZ;
+		Move (new Vector3 (.0f, .0f, baseFlowSpeed));
 	}
 	
 	// Update is called once per frame
@@ -30,6 +30,10 @@ public class IslandController : BaseFieldObject {
 		if(col.tag.Equals("Player")){
 			
 		}
+	}
+
+	public void setVerocityByPercent(float value) {
+		Move (new Vector3 (.0f, .0f, this.baseFlowSpeed * value));
 	}
 
 }
