@@ -44,7 +44,6 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 			gameCanvas.SetActive (false);
 			resultCanvas.SetActive (false);
 			currentStatus = Status.Start;
-			//StageController.Instance.StageInit ();
 			break;
 		case Status.Start:
 			break;
