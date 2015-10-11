@@ -19,19 +19,22 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 	//タッチを離したポジション
 	private Vector2 endPos;
 
+	private int count;
+	private int maxCount;
+
 	void Start (){
 		if (minSwipeDistX == 0) {
-			minSwipeDistX = 50;
+			minSwipeDistX = 20;
 		}
 		if (minSwipeDistY == 0) {
-			minSwipeDistY = 50;
+			minSwipeDistY = 20;
 		}
+		count = 0;
+		maxCount = 60;
 	}
 
 	void Update(){
-		//Swipe ();
 	}
-
 
 	void FixedUpdate () {
 		// ゲームが始まっているか判断
@@ -55,13 +58,12 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 	}
 	
 	private void GameTouchChecker(){
-
 		if (Input.GetMouseButtonDown (0)) {
 			startPos = Input.mousePosition;
 		}
 		if (Input.GetMouseButton (0)) {
 			endPos = Input.mousePosition;
-
+				
 			//X方向にスワイプした距離を算出
 			swipeDistX = (new Vector3 (endPos.x, 0, 0) - new Vector3 (startPos.x, 0, 0)).magnitude;
 			if (swipeDistX > minSwipeDistX) {
@@ -69,26 +71,20 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 				SignValueX = Mathf.Sign (endPos.x - startPos.x);
 				if (SignValueX > 0) {
 					//右方向にスワイプしたとき
-					TyphoonController.Instance.MoveRight ();
+					TyphoonController.Instance.Move (swipeDistX / 300.0f);
 				} else if (SignValueX < 0) {
 					//左方向にスワイプしたとき
-					TyphoonController.Instance.MoveLeft ();
+					TyphoonController.Instance.Move (-swipeDistX / 300.0f);
 				}
+				count += maxCount;
 			}
-
-			//Y方向にスワイプした距離を算出
-			swipeDistY = (new Vector3 (0, endPos.y, 0) - new Vector3 (0, startPos.y, 0)).magnitude;
-			if (swipeDistY > minSwipeDistY) {
-				//y座標の差分のサインを計算, yの差分をとっているので絶対にサインの値は1(90度)か-1(270度)
-				SignValueY = Mathf.Sign (endPos.y - startPos.y);
-				if (SignValueY > 0) {
-					//上方向にスワイプしたとき
-					TyphoonController.Instance.AddDensity ();
-				} else if (SignValueY < 0) {
-					//下方向にスワイプしたとき
-					TyphoonController.Instance.SubDensity ();
-				}
+			count++;
+		}
+		if (Input.GetMouseButtonUp (0)) {
+			if(count < maxCount){
+				TyphoonController.Instance.ChangeStatus();
 			}
+			count = 0;
 		}
 	}
 

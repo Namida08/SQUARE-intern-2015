@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 
@@ -13,38 +14,72 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	private GameObject tornadeCollider;
 
 	public enum Status{
-		Neutral
+		small, changeBig, changeSmall, big
 	};
 
-	private Status status;
+	public static Status status;
 
 	private float density;	//密度倍率
 	private float hp;		//勢力
 	private Vector2 point;	//座標
 	private float size;		//サイズ
 
+	private float speed;
+	private int speedCount;
+
+	private Vector3 velocity{
+		get{
+			return GetComponent<Rigidbody>().velocity;
+		}
+		set{
+			GetComponent<Rigidbody>().velocity = value;
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 	}
 	
 	// Update is called once per frame
-	void Update () {	
+	void Update () {
+		CalcStatus ();
+		CalcSpeed ();
 	}
-
+	
 	public void Init(){
+		status = Status.big;
 		point = new Vector2 (0 / 2, 0);	//画面サイズ半分初期値
 		Move (0.0f);
 		density = 0.0f;
 		CalcDensity(0.0f);
 		hp = 100.0f;
+		speed = 0.0f;
+		speedCount = 0;
 	}
 
-	private void Move(float value){
+	public void SetSpeed(float value){
+		speed = value;
+		speedCount = 1;
+	}
+
+	private void CalcSpeed(){
+		if (speedCount > 0) {
+			float s = speed * (float)(1.0 / Math.Pow ((double)speedCount, 2.0));
+			if (speed < 1) {
+				speed = 0.0f;
+				speedCount = 0;
+			}
+			Move (s);
+			speed++;
+		}
+	}
+	
+	public void Move(float value){
 		point.x += value;
 		if (point.x > 10) {
 			point.x = 10;
 		} else if (point.x < -10) {
-			point.x = -10;		
+			point.x = -10;
 		}
 		gameObject.transform.position = point;
 	}
@@ -57,12 +92,30 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 		Move (-0.2f);
 	}
 
+	public void ChangeStatus(){
+		if (status == Status.small) {
+			status = Status.changeBig;
+		} else if (status == Status.big) {
+			status = Status.changeSmall;
+		}
+	}
+
+	private void CalcStatus(){
+		if (status == Status.changeSmall) {
+			CalcDensity(1.0f);
+		} else if (status == Status.changeBig) {
+			CalcDensity(-1.0f);
+		}
+	}
+
 	private void CalcDensity(float value){
 		density += value;
 		if (density > 0.5) {
 			density = 0.5f;
+			status = Status.small;
 		}else if(density < -0.5){
 			density = -0.5f;
+			status = Status.big;
 		}
 		gameObject.transform.localScale = new Vector3(1.0f + density, 1.0f - density, 1.0f);
 		//
