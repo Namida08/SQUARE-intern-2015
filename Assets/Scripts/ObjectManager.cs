@@ -4,21 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
-	public int maxObjectConunt;
-	public float appearanceSpan;
-	public float appearanceRate;
 	public float baseSpeedOfZ;
+	private bool isTyphoonStateChanged = false;
+	// Must Change
+	private int currentTyphoonState = 1;
 	public GameObject[] objects;
 	private SampleStage stage;
 	
 	// Use this for initialization
 	void Start () {
 		stage = new SampleStage ();
-		StartCoroutine ("GenerateObjects");
+		GameStart ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		// Do watch typhoon state
+		// GetCurrentState ?
+		if (isTyphoonStateChanged) {
+			SpeedChangeAllObjects();
+		}
 
 	}
 
@@ -41,7 +46,8 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 					0, 
 					objParam.z);
 				Quaternion spawnRotation = Quaternion.identity;
-				var fieldObj = (GameObject)(objects.Where(x => x.gameObject.tag == objParam.objectTag).FirstOrDefault());
+				var len = objects.Count(x => x.gameObject.tag == objParam.objectTag);
+				var fieldObj = objects.Where(x => x.gameObject.tag == objParam.objectTag).ElementAt(Random.Range(0,len));
 				Instantiate(fieldObj, spawnPosition, spawnRotation);
 				switch (objParam.objectTag) {
 				case "Island":
@@ -63,6 +69,13 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 	{
 		foreach (var obj in GameObject.FindGameObjectsWithTag("Island")) {
 			Destroy(obj);
+		}
+	}
+
+	private void SpeedChangeAllObjects() {
+		// Chanage by per ? or contant????????????????????????????????????
+		foreach (var obj in GameObject.FindGameObjectsWithTag("Island")) {
+			obj.GetComponent<IslandController>().setVerocityByPercent(0.3f);
 		}
 	}
 
