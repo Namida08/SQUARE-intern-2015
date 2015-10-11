@@ -1,19 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class IslandController : MonoBehaviour {
+//[RequireComponent(typeof(Rigidbody))]
+public class IslandController : BaseFieldObject {
 
 	// Use this for initialization
 	void Start () {
 		GetWater ();
+		Move (new Vector3 (.0f,
+		                   .0f,
+		                   ((ObjectManager)GameObject.Find ("ObjectManager").GetComponent<ObjectManager>()).baseSpeedOfZ));
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
 	public void GetWater(){
 		GetComponent<Animator>().SetTrigger("water");
 	}
+
+	//void OnTriggerStay(Collider other) {
+	//}
+
 }

@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class CrowdController : BaseFieldObject {
-	public float power;
+	public float canGetMaxSeed;
+	public float canGetMinSeed;
 	private bool goLeft = false;
 	
 	// Use this for initialization
@@ -12,10 +13,10 @@ public class CrowdController : BaseFieldObject {
 	
 	// Update is called once per frame
 	public override void Update () {
-		MoveDelta (new Vector3 (
+		Move (new Vector3 (
 			(goLeft ? -1.0f : 1.0f) * Random.Range (0.0f, 1.0f),
 			0.0f, 
-			1.0f));
+			-1.0f));
 		DestroyByField ();
 	}
 	
@@ -30,4 +31,6 @@ public class CrowdController : BaseFieldObject {
 		    (transform.position.z < FieldManager.Instance.bottom))
 			Destroy (gameObject);
 	}
+
+
 }
