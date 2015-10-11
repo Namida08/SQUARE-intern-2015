@@ -15,6 +15,7 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 	[SerializeField] private GameObject gameCanvas;
 	[SerializeField] private GameObject resultCanvas;
 
+	[SerializeField] public Text TitleHighScore;
 	[SerializeField] public Text gameScore;
 	//[SerializeField] public Text highScoreAlert;
 	[SerializeField] public Text resultScore;
@@ -44,6 +45,7 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 			gameCanvas.SetActive (false);
 			resultCanvas.SetActive (false);
 			currentStatus = Status.Start;
+			TitleHighScore.text = ((int)GameManager.highScore).ToString();
 			break;
 		case Status.Start:
 			break;

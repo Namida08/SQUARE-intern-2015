@@ -209,6 +209,10 @@ Prefab:
       propertyPath: camera
       value: 
       objectReference: {fileID: 1422649841}
+    - target: {fileID: 2362164, guid: ab5377af8df430e42af78d3a0fff778d, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab5377af8df430e42af78d3a0fff778d, type: 2}
   m_IsPrefabParent: 0
@@ -306,6 +310,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 351e4e79e12bc924eb0b0362bdffaefb, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &280900698 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11484570, guid: 351e4e79e12bc924eb0b0362bdffaefb,
+    type: 2}
+  m_PrefabInternal: {fileID: 264688995}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &482683349
 Prefab:
   m_ObjectHideFlags: 0
@@ -539,6 +549,10 @@ Prefab:
       propertyPath: bottom
       value: -10
       objectReference: {fileID: 0}
+    - target: {fileID: 11441944, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
+      propertyPath: TitleHighScore
+      value: 
+      objectReference: {fileID: 280900698}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 32a212af7fe8d7743a2ff7826688821f, type: 2}
   m_IsPrefabParent: 0
