@@ -13,7 +13,7 @@ public class IslandController : BaseFieldObject {
 	
 	// Update is called once per frame
 	void Update () {
-
+		DestroyByField ();
 	}
 
 	public void GetWater(){
