@@ -11,8 +11,8 @@ GameObject:
   - 212: {fileID: 21245150}
   - 95: {fileID: 9537540}
   - 114: {fileID: 11457170}
-  - 135: {fileID: 13597332}
   - 54: {fileID: 5459834}
+  - 136: {fileID: 13674454}
   m_Layer: 0
   m_Name: Island_tree
   m_TagString: Island
@@ -75,8 +75,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e98af81b3e05845b13db47db1d9044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &13597332
-SphereCollider:
+--- !u!136 &13674454
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -84,8 +84,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
+  m_Radius: .496025562
+  m_Height: 3.30766153
+  m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &21245150
 SpriteRenderer:
