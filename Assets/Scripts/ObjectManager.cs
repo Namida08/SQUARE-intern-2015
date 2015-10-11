@@ -14,7 +14,7 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 	// Use this for initialization
 	void Start () {
 		stage = new SampleStage ();
-		StartCoroutine ("GenerateObjects");
+		GameStart ();
 	}
 	
 	// Update is called once per frame
@@ -41,7 +41,8 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 					0, 
 					objParam.z);
 				Quaternion spawnRotation = Quaternion.identity;
-				var fieldObj = (GameObject)(objects.Where(x => x.gameObject.tag == objParam.objectTag).FirstOrDefault());
+				var len = objects.Count(x => x.gameObject.tag == objParam.objectTag);
+				var fieldObj = (GameObject)(objects.Where(x => x.gameObject.tag == objParam.objectTag).ElementAt(Random.Range(0,len)));
 				Instantiate(fieldObj, spawnPosition, spawnRotation);
 				switch (objParam.objectTag) {
 				case "Island":
