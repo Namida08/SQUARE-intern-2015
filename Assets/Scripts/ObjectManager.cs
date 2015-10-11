@@ -8,7 +8,7 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 	public float appearanceSpan;
 	public float appearanceRate;
 	public float baseSpeedOfZ;
-	public GameObject crowd;
+	public GameObject[] objects;
 	private SampleStage stage;
 	
 	// Use this for initialization
@@ -35,14 +35,25 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 			var id = Random.Range(1,3);
 			Debug.Log(id);
 			foreach (SpawnObject objParam in stage.getList().Where(x => x.groupID == id ))
-			//foreach (SpawnObject objParam in stage.GetEnumerator())
 			{
 				Vector3 spawnPosition = new Vector3 (
 					objParam.x,
 					0, 
 					objParam.z);
 				Quaternion spawnRotation = Quaternion.identity;
-				Instantiate(crowd, spawnPosition, spawnRotation);
+				var fieldObj = (GameObject)(objects.Where(x => x.gameObject.tag == objParam.objectTag).FirstOrDefault());
+				Instantiate(fieldObj, spawnPosition, spawnRotation);
+				switch (objParam.objectTag) {
+				case "Island":
+					//fieldObj.GetComponent<IslandController>();
+					break;
+				//case "Crowd":
+					//fieldObj.GetComponent<CrowdController>().setDirection(objParam.direction);
+					//fieldObj.GetComponent<CrowdController>().setBaseVelocity(new Vector3(objParam.objSpeed, 0f, ))
+				default:
+					break;
+				}
+
 				yield return new WaitForSeconds(objParam.nextSpawnSpan);
 			}
 		}
