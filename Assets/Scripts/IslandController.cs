@@ -22,7 +22,7 @@ public class IslandController : BaseFieldObject {
 
 	void OnTriggerEnter(Collider col){
 		if(col.tag.Equals("Player")){
-
+			GetWater();
 		}
 	}
 	
