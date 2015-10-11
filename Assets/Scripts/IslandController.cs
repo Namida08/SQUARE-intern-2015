@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-	//[RequireComponent(typeof(Rigidbody))]
-	public class IslandController : BaseFieldObject {
-
-	[SerializeField]
-	private 
-
+//[RequireComponent(typeof(Rigidbody))]
+public class IslandController : BaseFieldObject {
+	
 	// Use this for initialization
 	void Start () {
-		GetWater ();
 		Move (new Vector3 (.0f,
 		                   .0f,
 		                   ((ObjectManager)GameObject.Find ("ObjectManager").GetComponent<ObjectManager>()).baseSpeedOfZ));
