@@ -13,10 +13,7 @@ public class CrowdController : BaseFieldObject {
 	
 	// Update is called once per frame
 	public override void Update () {
-		Move (new Vector3 (
-			(goLeft ? -1.0f : 1.0f) * Random.Range (0.0f, 1.0f),
-			0.0f, 
-			-1.0f));
+		//Move (new Vector3 ((goLeft ? -1.0f : 1.0f) * Random.Range (0.0f, 1.0f),0.0f, -1.0f));
 		DestroyByField ();
 	}
 	
