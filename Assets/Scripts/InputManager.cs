@@ -24,7 +24,7 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 			minSwipeDistX = 50;
 		}
 		if (minSwipeDistY == 0) {
-			minSwipeDistY = 20;
+			minSwipeDistY = 50;
 		}
 	}
 

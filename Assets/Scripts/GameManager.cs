@@ -9,7 +9,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 	public static int lastScore;
 	public static float score;
 
-	[SerializeField] private float scoreMagnification = 10.0f;
+	[SerializeField] private float scoreMagnification = 1.0f;
 
 	void Start () {
 	}
@@ -24,14 +24,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 		
 		//init
 		TyphoonController.Instance.Init ();
+		ObjectManager.Instance.Initialize ();
 	}
 
 	public void GameUpdate(){
-		//AddScore (-ObjectManager.Instantiate.baseSpeedOfZ);
+		AddScore (-ObjectManager.Instance.baseSpeedOfZ);
 	}
 
 	public void GameStart(){
-		//start
+		ObjectManager.Instance.GameStart();
 	}
 	
 	public void GameFinish(){

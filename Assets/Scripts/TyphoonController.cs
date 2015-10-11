@@ -9,6 +9,8 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	[SerializeField]
 	private ParticleSystem tornadeParticle;
 
+	[SerializeField]
+	private GameObject tornadeCollider;
 
 	public enum Status{
 		Neutral
@@ -67,8 +69,8 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 		tornadeParticle.startSpeed = 6.0f - density * 10.0f;
 		tornadeParticle.startSize = 6.0f + density * 10.0f;
 		tornadeParticle.emissionRate = 300.0f - density * 400.0f;
-
-
+		GetComponent<SphereCollider> ().radius = 4.0f * (1.0f + density);
+		tornadeCollider.transform.localScale = new Vector3(8.0f,8.0f,8.0f) * (1.0f + density);
 	}
 
 	public void AddDensity(){
