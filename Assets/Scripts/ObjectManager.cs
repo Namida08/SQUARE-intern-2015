@@ -1,43 +1,66 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
-public class ObjectManager : MonoBehaviour {
+public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 	public int maxObjectConunt;
 	public float appearanceSpan;
 	public float appearanceRate;
 	public float baseSpeedOfZ;
 	public GameObject crowd;
+	private SampleStage stage;
 	
 	// Use this for initialization
 	void Start () {
-		StartCoroutine (GenerateObjects());
+		stage = new SampleStage ();
+		StartCoroutine ("GenerateObjects");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 	}
-	
+
+	public void Awake()	{
+		base.Awake ();
+		
+		DontDestroyOnLoad(this.gameObject);
+	}
+
 	IEnumerator GenerateObjects()
 	{
 		while (true)
 		{
-			// Change using table
-			var obj = GameObject.FindGameObjectsWithTag("Island");
-			if (obj.Length < maxObjectConunt) {
-				if (Random.Range(0.0f,1.0f) < 0.4f) 
-					yield return new WaitForSeconds(appearanceSpan);
+			var id = Random.Range(1,3);
+			Debug.Log(id);
+			foreach (SpawnObject objParam in stage.getList().Where(x => x.groupID == id ))
+			//foreach (SpawnObject objParam in stage.GetEnumerator())
+			{
 				Vector3 spawnPosition = new Vector3 (
-					Random.Range (FieldManager.Instance.left ,FieldManager.Instance.right),
+					objParam.x,
 					0, 
-					Random.Range(FieldManager.Instance.bottom,FieldManager.Instance.top));
+					objParam.z);
 				Quaternion spawnRotation = Quaternion.identity;
-				var cr = (GameObject)Instantiate(crowd, spawnPosition, spawnRotation);
-				//cr.GetComponent<IslandController>().setBaseVelocity(new Vector3(0.4f,0f,0.2f));
-				yield return new WaitForSeconds(appearanceSpan);
+				Instantiate(crowd, spawnPosition, spawnRotation);
+				yield return new WaitForSeconds(objParam.nextSpawnSpan);
 			}
-			yield return new WaitForSeconds(appearanceSpan);
 		}
+	}
+
+	public void DestroyAllObjects()
+	{
+		foreach (var obj in GameObject.FindGameObjectsWithTag("Island")) {
+			Destroy(obj);
+		}
+	}
+
+	public void Initialize() {
+		StopCoroutine ("GenerateObjects");
+		DestroyAllObjects ();
+	}
+
+	public void GameStart() {
+		StartCoroutine ("GenerateObjects");
 	}
 }
