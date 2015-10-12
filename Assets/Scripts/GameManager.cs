@@ -17,7 +17,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 
 	void Update () {
 	}
-	
+
+	public void ScoreInit(){
+		highScore = PlayerPrefs.GetInt (NORMAL_HIGH_SCORE_KEY, 0);
+		lastScore = PlayerPrefs.GetInt (NORMAL_LAST_SCORE_KEY, 0);
+	}
+
 	public void GameInit(){
 		score = 0;
 		time = 30.0f;

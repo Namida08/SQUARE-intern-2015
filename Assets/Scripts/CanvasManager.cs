@@ -41,12 +41,13 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 		switch(currentStatus){
 		case Status.Init:
 			Init ();
+			GameManager.Instance.ScoreInit();
 			AudioManager.Instance.PlayBGM("op");
 			titleCanvas.SetActive (true);
 			gameCanvas.SetActive (false);
 			resultCanvas.SetActive (false);
 			currentStatus = Status.Start;
-			TitleHighScore.text = ((int)GameManager.highScore).ToString() + "億円";
+			TitleHighScore.text = (((int)GameManager.highScore).ToString() + "億円");
 			break;
 		case Status.Start:
 			break;
