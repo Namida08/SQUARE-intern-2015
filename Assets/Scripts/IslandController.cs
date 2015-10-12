@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -74,20 +75,23 @@ public class IslandController : BaseFieldObject {
 		GameObject particle;
 		Vector3 position;
 		GameObject obj;
+		int type;
 		switch(name) {
 		case "Island_roujinA":
 			Debug.Log("ROUJIN_A");
-			//particle = (GameObject)Resources.Load ("Particles/Tornado_roujin_1" + Random.Range(1,3).ToString());
-			particle = (GameObject)Resources.Load ("Particles/Tornado_roujin_1");
+			particle = (GameObject)Resources.Load ("Particles/Tornado_roujin_" + Random.Range(1,3).ToString());
+			//particle = (GameObject)Resources.Load ("Particles/Tornado_roujin_1");
 			position = gameObject.transform.position;
 			obj = (GameObject)Instantiate (particle, position, Quaternion.identity);
 			obj.GetComponent<ParticleSystem>().Simulate(0.0005f);
 			obj.GetComponent<ParticleSystem>().Emit(0);
 			obj.GetComponent<ParticleSystem>().Play ();
 			break;
-		case "Island_toshi_3":
+		case "Island_toshi_1":
 			Debug.Log("ROUJIN_B");
-			particle = (GameObject)Resources.Load ("Particles/Tornado_roujin_1");
+			type = Enumerable.Range(1,3).Concat(Enumerable.Range(10,3)).ElementAt(Random.Range(0,7));
+			particle = (GameObject)Resources.Load ("Particles/Tornado_toshi_" +
+			                                       type.ToString());
 			//particle = (GameObject)Resources.Load ("Particles/Tornado_roujin_" + Random.Range(4,6).ToString());
 			position = gameObject.transform.position;
 			obj = (GameObject)Instantiate (particle, position, Quaternion.identity);
@@ -95,6 +99,17 @@ public class IslandController : BaseFieldObject {
 			obj.GetComponent<ParticleSystem>().Emit(0);
 			obj.GetComponent<ParticleSystem>().Play ();
 			break;
+		case "Island_toshi_3":
+			type = Enumerable.Range(1,3).Concat(Enumerable.Range(5,5)).ElementAt(Random.Range(0,7));
+			particle = (GameObject)Resources.Load ("Particles/Tornado_toshi_" +
+			                                       type.ToString());
+			position = gameObject.transform.position;
+			obj = (GameObject)Instantiate (particle, position, Quaternion.identity);
+			obj.GetComponent<ParticleSystem>().Simulate(0.0005f);
+			obj.GetComponent<ParticleSystem>().Emit(0);
+			obj.GetComponent<ParticleSystem>().Play ();
+			break;
+
 		default:
 			break;
 		}
