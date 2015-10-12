@@ -135,7 +135,6 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 			density = -0.5f;
 			status = Status.small;
 		}
-		print (status);
 		SetDensity (density);
 	}
 
