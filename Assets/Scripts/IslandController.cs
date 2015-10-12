@@ -89,7 +89,7 @@ public class IslandController : BaseFieldObject {
 			break;
 		case "Island_toshi_1":
 			Debug.Log("ROUJIN_B");
-			type = Enumerable.Range(1,3).Concat(Enumerable.Range(10,3)).ElementAt(Random.Range(0,7));
+			type = Enumerable.Range(1,3).Concat(Enumerable.Range(10,3)).ElementAt(Random.Range(0,5));
 			particle = (GameObject)Resources.Load ("Particles/Tornado_toshi_" +
 			                                       type.ToString());
 			//particle = (GameObject)Resources.Load ("Particles/Tornado_roujin_" + Random.Range(4,6).ToString());
