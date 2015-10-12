@@ -61,6 +61,7 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 				}
 
 				yield return new WaitForSeconds(objParam.nextSpawnSpan);
+					//yield return StartCoroutine(WaitForSecondsWithAccel(objParam.nextSpawnSpan));
 			}
 		}
 	}
@@ -86,5 +87,20 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 
 	public void GameStart() {
 		StartCoroutine ("GenerateObjects");
+	}
+
+	private IEnumerator WaitForSecondsWithAccel(float waitTime)
+	{
+		float beforeCheckedTime = Time.realtimeSinceStartup;
+		float coursedTime = 0.0f;
+		while(true){
+			while (coursedTime < waitTime){
+				float delta = (Time.realtimeSinceStartup - beforeCheckedTime) * (ObjectManager.Instance.baseSpeedOfZ == -10.0f ? 1.0f : 2.0f);
+				coursedTime += delta;
+				yield return new WaitForSeconds(0.05f);
+			}
+			//Debug.Log("BREAK");
+			break;
+		}
 	}
 }
