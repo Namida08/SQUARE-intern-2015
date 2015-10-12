@@ -123,12 +123,15 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 		}
 	}
 
+	public float GetDensity(){
+		return density;
+	}
+
 	public void CalcDensity(float value){
 		density += value;
 		if (density > 0.5) {
 			density = 0.5f;
-			status = Status.big;
-		}else if(density < -0.5){
+		} else if (density < -0.5) {
 			density = -0.5f;
 			status = Status.small;
 		}
@@ -152,6 +155,7 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	
 	public void AddDensity(){
 		CalcDensity(0.5f);
+		status = Status.big;
 	}
 
 	public void SubDensity(){
@@ -182,7 +186,7 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	void OnTriggerExit(Collider col){
 		if(col.gameObject.tag.Equals("Island")){
 			if(status == Status.big){
-				GameManager.Instance.AddScore(100.0f);
+				GameManager.Instance.AddScore(10.0f);
 				Debug.Log("AddScore");
 				
 				GameObject particle = (GameObject)Resources.Load ("Particles/AddScore");
@@ -200,6 +204,9 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	void OnTriggerStay(Collider col){
 		if(col.gameObject.tag.Equals("Island")){
 			AddHP(-0.1f);
+		}
+		if(density > 0.1f){
+			GameManager.Instance.AddScore(1.0f);
 		}
 	}
 
