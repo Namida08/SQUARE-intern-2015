@@ -46,7 +46,7 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 			gameCanvas.SetActive (false);
 			resultCanvas.SetActive (false);
 			currentStatus = Status.Start;
-			TitleHighScore.text = ((int)GameManager.highScore).ToString();
+			TitleHighScore.text = ((int)GameManager.highScore).ToString() + "億円";
 			break;
 		case Status.Start:
 			break;
@@ -67,7 +67,7 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 		case Status.Game:
 			background.Move(ObjectManager.Instance.baseSpeedOfZ/100);//あとでステージに移植
 			GameManager.Instance.GameUpdate();
-			gameScore.text = ((int)GameManager.score).ToString();
+			gameScore.text = ((int)GameManager.score).ToString() + "億円";
 			time.text = ((int)GameManager.time).ToString();
 			if(GameManager.score > GameManager.highScore){
 				//highScoreAlert.gameObject.SetActive(true);
@@ -101,8 +101,8 @@ public class CanvasManager : SingletonMonoBehaviour<CanvasManager> {
 		//particles.Add (Instantiate (planeDust, PlayerController.Instance.transform.position, Quaternion.Euler (-90, 0, 0)));
 		gameCanvas.SetActive(false);
 		resultCanvas.SetActive(true);
-		resultScore.text = ((int)GameManager.score).ToString();
-		resultHighScore.text = ((int)GameManager.highScore).ToString();
+		resultScore.text = ((int)GameManager.score).ToString() + "億円";
+		resultHighScore.text = ((int)GameManager.highScore).ToString() + "億円";
 		if (GameManager.score > GameManager.highScore) {
 			//particles.Add (Instantiate(cracker, new Vector3(mainCamera.orthographicSize * -1.5f, mainCamera.orthographicSize * -1.0f, 0.0f), Quaternion.Euler(-75, 90, 0)));
 			//particles.Add (Instantiate(cracker, new Vector3(mainCamera.orthographicSize * 1.5f, mainCamera.orthographicSize * -1, 0), Quaternion.Euler(-75, -90, 0)));
