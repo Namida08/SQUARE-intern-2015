@@ -968,7 +968,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19852768, guid: 2a57e20806502f04395204046fb19e16, type: 2}
       propertyPath: looping
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19852768, guid: 2a57e20806502f04395204046fb19e16, type: 2}
+      propertyPath: InitialModule.startSpeed.minCurve.m_Curve.Array.data[0].value
+      value: .333333343
+      objectReference: {fileID: 0}
+    - target: {fileID: 19852768, guid: 2a57e20806502f04395204046fb19e16, type: 2}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 19852768, guid: 2a57e20806502f04395204046fb19e16, type: 2}
+      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2a57e20806502f04395204046fb19e16, type: 2}
