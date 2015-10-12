@@ -208,7 +208,7 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 			GameManager.Instance.AddScore(1.0f);
 			Debug.Log("AddScore");
 
-			var obj = ObjectPool.Instance.GetGameObject((GameObject)Resources.Load ("Particles/AddScore"), col.gameObject.transform.position,Quaternion.identity);
+			var obj = (GameObject)Instantiate((GameObject)Resources.Load ("Particles/AddScore"), col.gameObject.transform.position,Quaternion.identity);
 
 			obj.GetComponent<ParticleSystem>().Simulate(0.0005f);
 			obj.GetComponent<ParticleSystem>().Emit(0);

@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 421132}
   - 114: {fileID: 11437080}
+  - 114: {fileID: 11429580}
   m_Layer: 0
   m_Name: ObjectManager
   m_TagString: Untagged
@@ -28,6 +29,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11429580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3287aeee7e805c244b9f8adb9507be47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11437080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -39,11 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a5397592c6044368ab640ea15d3d08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxObjectConunt: 2
-  appearanceSpan: .300000012
-  appearanceRate: 0
-  baseSpeedOfZ: 0
-  crowd: {fileID: 154296, guid: fe93d507ecaea45459610ed87ec7f488, type: 2}
+  baseSpeedOfZ: -4
+  objects:
+  - {fileID: 138336, guid: d14447075db684d23aba6f7e138c32a7, type: 2}
+  - {fileID: 138336, guid: 1b60c6ea9fa5826468f5ccf83841e07c, type: 2}
+  - {fileID: 187140, guid: 449f2fd684c9a2945b432ac42ff255a9, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
