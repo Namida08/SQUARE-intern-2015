@@ -72,10 +72,10 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 				SignValueX = Mathf.Sign (endPos.x - startPos.x);
 				if (SignValueX > 0) {
 					//右方向にスワイプしたとき
-					TyphoonController.Instance.Move (swipeDistX / 300.0f);
+					TyphoonController.Instance.Move (swipeDistX / 400.0f);
 				} else if (SignValueX < 0) {
 					//左方向にスワイプしたとき
-					TyphoonController.Instance.Move (-swipeDistX / 300.0f);
+					TyphoonController.Instance.Move (-swipeDistX / 400.0f);
 				}
 				count += maxCount;
 			}
