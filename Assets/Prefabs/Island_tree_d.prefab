@@ -14,7 +14,7 @@ GameObject:
   - 54: {fileID: 5459834}
   - 136: {fileID: 13674454}
   m_Layer: 0
-  m_Name: Island_tree
+  m_Name: Island_tree_d
   m_TagString: Island
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
