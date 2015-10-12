@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class InputManager : SingletonMonoBehaviour<InputManager>  {
 	[SerializeField]
@@ -20,6 +21,7 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 	private Vector2 endPos;
 
 	private int count;
+	private bool moveFlag;
 	private int maxCount;
 
 	void Start (){
@@ -30,6 +32,7 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 			minSwipeDistY = 50;
 		}
 		count = 0;
+		moveFlag = true;
 		maxCount = 60;
 	}
 
@@ -59,12 +62,18 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 
 	private void GameTouchChecker(){
 		if (Input.GetMouseButtonDown (0)) {
-			startPos = Input.mousePosition;
 			count = 0;
+			startPos = Input.mousePosition;
+			Vector3 screenSpace = Camera.main.WorldToScreenPoint(TyphoonController.Instance.transform.position);
+			if(Math.Abs(TyphoonController.Instance.transform.position.x - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z)).x) < 1.0f){
+				moveFlag = true;
+			}else{
+				moveFlag = false;
+			}
 		}
 		if (Input.GetMouseButton (0)) {
 			endPos = Input.mousePosition;
-				
+			//print (Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z)).x);
 			//X方向にスワイプした距離を算出
 			swipeDistX = (new Vector3 (endPos.x, 0, 0) - new Vector3 (startPos.x, 0, 0)).magnitude;
 			if (swipeDistX > minSwipeDistX) {
@@ -72,12 +81,16 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 				SignValueX = Mathf.Sign (endPos.x - startPos.x);
 				if (SignValueX > 0) {
 					//右方向にスワイプしたとき
-					TyphoonController.Instance.Move (swipeDistX / 800.0f);
+					//TyphoonController.Instance.Move (swipeDistX / 800.0f);
 				} else if (SignValueX < 0) {
 					//左方向にスワイプしたとき
-					TyphoonController.Instance.Move (-swipeDistX / 800.0f);
+					//TyphoonController.Instance.Move (-swipeDistX / 800.0f);
 				}
-				count += maxCount;
+				//count += maxCount;
+			}
+			if(moveFlag){
+				Vector3 screenSpace = Camera.main.WorldToScreenPoint(TyphoonController.Instance.transform.position);
+				TyphoonController.Instance.SetMove (Camera.main.ScreenToWorldPoint(new Vector3(endPos.x, endPos.y, screenSpace.z)).x);
 			}
 			count++;
 		}

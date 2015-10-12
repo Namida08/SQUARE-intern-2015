@@ -84,7 +84,17 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 			speed++;
 		}
 	}
-	
+
+	public void SetMove(float value){
+		point.x = value;
+		if (point.x > 10) {
+			point.x = 10;
+		} else if (point.x < -10) {
+			point.x = -10;
+		}
+		gameObject.transform.position = point;
+	}
+
 	public void Move(float value){
 		point.x += value;
 		if (point.x > 10) {
