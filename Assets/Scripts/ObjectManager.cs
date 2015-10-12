@@ -59,8 +59,8 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 				default:
 					break;
 				}
-
-				yield return new WaitForSeconds(objParam.nextSpawnSpan);
+				yield return StartCoroutine(WaitForFrameWithAccel(objParam.nextSpawFrame));
+				//yield return new WaitForSeconds(objParam.nextSpawnSpan);
 					//yield return StartCoroutine(WaitForSecondsWithAccel(objParam.nextSpawnSpan));
 			}
 		}
@@ -103,4 +103,14 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 			break;
 		}
 	}
+
+	private IEnumerator WaitForFrameWithAccel(int waitFrame) {
+		int coursedFrame = 0;
+		while (coursedFrame < waitFrame) {
+			coursedFrame += (ObjectManager.Instance.baseSpeedOfZ == -10.0f ? 1 : 2);
+			yield return new WaitForEndOfFrame();
+		}
+		Debug.Log (coursedFrame);
+	}
+
 }
