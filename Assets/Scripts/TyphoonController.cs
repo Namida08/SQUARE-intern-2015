@@ -48,8 +48,10 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	
 	// Update is called once per frame
 	void Update () {
-		CalcStatus ();
+		//CalcStatus ();
 		CalcSpeed ();
+		SubDensity ();
+		ObjectManager.Instance.baseSpeedOfZ = -20.0f * (1.0f - density);
 	}
 	
 	public void Init(){
@@ -136,7 +138,7 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	public void SetDensity(float density){
 		gameObject.transform.localScale = new Vector3(1.0f + density, 1.0f - density, 1.0f);
 		//
-		tornadeParticle.startSpeed = 6.0f - density * 10.0f;
+		tornadeParticle.startSpeed = 3.0f - density * 5.0f;
 		tornadeParticle.startSize = 6.0f + density * 10.0f;
 		tornadeParticle.emissionRate = 300.0f - density * 400.0f;
 		GetComponent<SphereCollider> ().radius = 4.0f * (1.0f + density);
@@ -149,11 +151,11 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	}
 	
 	public void AddDensity(){
-		CalcDensity(0.02f);
+		CalcDensity(0.5f);
 	}
 
 	public void SubDensity(){
-		CalcDensity(-0.02f);
+		CalcDensity(-0.04f);
 	}
 
 	public void AddHP(float value){

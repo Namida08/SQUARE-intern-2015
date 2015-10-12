@@ -72,10 +72,10 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 				SignValueX = Mathf.Sign (endPos.x - startPos.x);
 				if (SignValueX > 0) {
 					//右方向にスワイプしたとき
-					TyphoonController.Instance.Move (swipeDistX / 400.0f);
+					TyphoonController.Instance.Move (swipeDistX / 800.0f);
 				} else if (SignValueX < 0) {
 					//左方向にスワイプしたとき
-					TyphoonController.Instance.Move (-swipeDistX / 400.0f);
+					TyphoonController.Instance.Move (-swipeDistX / 800.0f);
 				}
 				count += maxCount;
 			}
@@ -83,7 +83,7 @@ public class InputManager : SingletonMonoBehaviour<InputManager>  {
 		}
 		if (Input.GetMouseButtonUp (0)) {
 			if(count < maxCount){
-				TyphoonController.Instance.ChangeStatus();
+				TyphoonController.Instance.AddDensity();
 			}
 		}
 	}
