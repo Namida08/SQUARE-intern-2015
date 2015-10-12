@@ -77,7 +77,7 @@ public class IslandController : BaseFieldObject {
 		GameObject obj;
 		int type;
 		switch(name) {
-		case "Island_roujinA":
+		case "Island_roujin_A":
 			Debug.Log("ROUJIN_A");
 			position = gameObject.transform.position;
 			obj = ObjectPool.Instance.GetGameObject((GameObject)Resources.Load("Particles/Tornado_roujin_" + Random.Range(1,3).ToString()), position, Quaternion.identity);

@@ -38,7 +38,6 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 		while (true)
 		{
 			var id = Random.Range(1,3);
-			Debug.Log(id);
 			foreach (SpawnObject objParam in stage.getList().Where(x => x.groupID == id ))
 			{
 				Vector3 spawnPosition = new Vector3 (
@@ -62,7 +61,6 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 
 				int coursedFrame = 0;
 				while (coursedFrame < objParam.nextSpawFrame) {
-					Debug.Log(ObjectManager.Instance.baseSpeedOfZ);
 					coursedFrame += (int)ObjectManager.Instance.baseSpeedOfZ / (-10);;
 					yield return new WaitForEndOfFrame();
 				}
@@ -117,7 +115,6 @@ public class ObjectManager : SingletonMonoBehaviour<ObjectManager> {
 			coursedFrame += (ObjectManager.Instance.baseSpeedOfZ == -10.0f ? 1 : 2);
 			yield return new WaitForEndOfFrame();
 		}
-		Debug.Log (coursedFrame);
 	}
 
 }

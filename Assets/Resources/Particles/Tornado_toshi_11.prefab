@@ -11,7 +11,6 @@ GameObject:
   - 198: {fileID: 19810050}
   - 199: {fileID: 19914950}
   - 114: {fileID: 11495264}
-  - 114: {fileID: 11412504}
   m_Layer: 0
   m_Name: Tornado_toshi_11
   m_TagString: Untagged
@@ -31,17 +30,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11412504
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 188626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a8c17c6f3dc44dfb9c4ad9be8ca9b29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11495264
 MonoBehaviour:
   m_ObjectHideFlags: 1

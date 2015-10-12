@@ -206,7 +206,6 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 		}
 		if(density > 0.05f){
 			GameManager.Instance.AddScore(1.0f);
-			Debug.Log("AddScore");
 
 			var obj = (GameObject)Instantiate((GameObject)Resources.Load ("Particles/AddScore"), col.gameObject.transform.position,Quaternion.identity);
 
