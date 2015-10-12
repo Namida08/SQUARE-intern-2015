@@ -35,7 +35,7 @@ public class IslandController : BaseFieldObject {
 	{
 		float current = spriteRenderer.color.a;
 		if (current < 1f) {
-			spriteRenderer.color = new Color(1f,1f,1f,current + 0.01f * (baseFlowSpeed == -10.0f ? 1.0f : 2.0f));
+			spriteRenderer.color = new Color(1f,1f,1f,current + 0.02f * baseFlowSpeed / -10.0f);
 		}
 	}
 
@@ -43,7 +43,7 @@ public class IslandController : BaseFieldObject {
 	{
 		var current = transform.position;
 		if (current.y < 0.0f) {
-			float next = current.y + 0.05f * (baseFlowSpeed == -10.0f ? 1.0f : 2.0f);
+			float next = current.y + 0.08f * (baseFlowSpeed / -10.0f);
 			transform.position = new Vector3 (current.x, ((next >= 1.0f) ? (1.0f) : next), current.z);
 		}
 	}
@@ -79,10 +79,11 @@ public class IslandController : BaseFieldObject {
 		switch(name) {
 		case "Island_roujinA":
 			Debug.Log("ROUJIN_A");
-			particle = (GameObject)Resources.Load ("Particles/Tornado_roujin_" + Random.Range(1,3).ToString());
-			//particle = (GameObject)Resources.Load ("Particles/Tornado_roujin_1");
 			position = gameObject.transform.position;
-			obj = (GameObject)Instantiate (particle, position, Quaternion.identity);
+			obj = ObjectPool.Instance.GetGameObject((GameObject)Resources.Load("Particles/Tornado_roujin_" + Random.Range(1,3).ToString()), position, Quaternion.identity);
+			//particle = (GameObject)Resources.Load ("Particles/Tornado_roujin_" + Random.Range(1,3).ToString());
+			//particle = (GameObject)Resources.Load ("Particles/Tornado_roujin_1");
+//			position = gameObject.transform.position;
 			obj.GetComponent<ParticleSystem>().Simulate(0.0005f);
 			obj.GetComponent<ParticleSystem>().Emit(0);
 			obj.GetComponent<ParticleSystem>().Play ();
@@ -90,21 +91,17 @@ public class IslandController : BaseFieldObject {
 		case "Island_toshi_1":
 			Debug.Log("ROUJIN_B");
 			type = Enumerable.Range(1,3).Concat(Enumerable.Range(10,3)).ElementAt(Random.Range(0,5));
-			particle = (GameObject)Resources.Load ("Particles/Tornado_toshi_" +
-			                                       type.ToString());
-			//particle = (GameObject)Resources.Load ("Particles/Tornado_roujin_" + Random.Range(4,6).ToString());
+			//particle = (GameObject)Resources.Load ("Particles/Tornado_toshi_" + type.ToString());
 			position = gameObject.transform.position;
-			obj = (GameObject)Instantiate (particle, position, Quaternion.identity);
+			obj = ObjectPool.Instance.GetGameObject((GameObject)Resources.Load ("Particles/Tornado_toshi_" + type.ToString()), position, Quaternion.identity);
 			obj.GetComponent<ParticleSystem>().Simulate(0.0005f);
 			obj.GetComponent<ParticleSystem>().Emit(0);
 			obj.GetComponent<ParticleSystem>().Play ();
 			break;
 		case "Island_toshi_3":
 			type = Enumerable.Range(1,3).Concat(Enumerable.Range(5,5)).ElementAt(Random.Range(0,7));
-			particle = (GameObject)Resources.Load ("Particles/Tornado_toshi_" +
-			                                       type.ToString());
 			position = gameObject.transform.position;
-			obj = (GameObject)Instantiate (particle, position, Quaternion.identity);
+			obj = ObjectPool.Instance.GetGameObject((GameObject)Resources.Load ("Particles/Tornado_toshi_" + type.ToString()), position, Quaternion.identity);
 			obj.GetComponent<ParticleSystem>().Simulate(0.0005f);
 			obj.GetComponent<ParticleSystem>().Emit(0);
 			obj.GetComponent<ParticleSystem>().Play ();

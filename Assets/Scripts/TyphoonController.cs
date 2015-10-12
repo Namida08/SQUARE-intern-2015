@@ -197,12 +197,9 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 		if(density > 0.05f){
 			GameManager.Instance.AddScore(1.0f);
 			Debug.Log("AddScore");
-			
-			GameObject particle = (GameObject)Resources.Load ("Particles/AddScore");
-			
-			Vector3 position = col.gameObject.transform.position;
-			position = new Vector3(position.x, position.y, 20f);
-			var obj = (GameObject)Instantiate (particle, position, Quaternion.identity);
+
+			var obj = ObjectPool.Instance.GetGameObject((GameObject)Resources.Load ("Particles/AddScore"), col.gameObject.transform.position,Quaternion.identity);
+
 			obj.GetComponent<ParticleSystem>().Simulate(0.0005f);
 			obj.GetComponent<ParticleSystem>().Emit(0);
 			obj.GetComponent<ParticleSystem>().Play ();

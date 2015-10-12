@@ -9,12 +9,13 @@ public class ParticleDestroyer : MonoBehaviour {
 	void Start () {
 		//Invoke ("OnDestroyByTime", destroyTime);
 		particleSystem = GetComponent <ParticleSystem>();
-		Destroy (this.gameObject, this.particleSystem.duration);
+		Invoke ("OnDestroyByTime", this.particleSystem.duration);
+		//Destroy (this.gameObject, this.particleSystem.duration);
 	}
 
-//	void OnDestroyByTime() {
-//		Destroy (this.gameObject);
-//	}
+	void OnDestroyByTime() {
+		ObjectPool.Instance.ReleaseGameObject (this.gameObject);
+	}
 
 //
 //	void Update() {
