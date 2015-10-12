@@ -186,17 +186,6 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 	void OnTriggerExit(Collider col){
 		if(col.gameObject.tag.Equals("Island")){
 			if(status == Status.big){
-				GameManager.Instance.AddScore(10.0f);
-				Debug.Log("AddScore");
-				
-				GameObject particle = (GameObject)Resources.Load ("Particles/AddScore");
-
-				Vector3 position = col.gameObject.transform.position;
-				position = new Vector3(position.x, position.y, 20f);
-				var obj = (GameObject)Instantiate (particle, position, Quaternion.identity);
-				obj.GetComponent<ParticleSystem>().Simulate(0.0005f);
-				obj.GetComponent<ParticleSystem>().Emit(0);
-				obj.GetComponent<ParticleSystem>().Play ();
 			}
 		}
 	}
@@ -205,8 +194,19 @@ public class TyphoonController : SingletonMonoBehaviour<TyphoonController> {
 		if(col.gameObject.tag.Equals("Island")){
 			AddHP(-0.1f);
 		}
-		if(density > 0.1f){
+		if(density > 0.05f){
 			GameManager.Instance.AddScore(1.0f);
+			Debug.Log("AddScore");
+			
+			GameObject particle = (GameObject)Resources.Load ("Particles/AddScore");
+			
+			Vector3 position = col.gameObject.transform.position;
+			position = new Vector3(position.x, position.y, 20f);
+			var obj = (GameObject)Instantiate (particle, position, Quaternion.identity);
+			obj.GetComponent<ParticleSystem>().Simulate(0.0005f);
+			obj.GetComponent<ParticleSystem>().Emit(0);
+			obj.GetComponent<ParticleSystem>().Play ();
+
 		}
 	}
 
